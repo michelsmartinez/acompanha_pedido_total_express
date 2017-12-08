@@ -5,6 +5,8 @@ import os
 from bs4 import BeautifulSoup
 import re
 import emailpy
+import time
+
 
 def get(url, de, senha, para):
     r = requests.get(url)
@@ -23,7 +25,7 @@ def get(url, de, senha, para):
         msg += ("{} {} ->  {}.\n".format(data, hora, status))
 
     log = open('./status.log', 'r')
-    status_anterior  = ''.join(log.readlines())
+    status_anterior = ''.join(log.readlines())
 
     if status_anterior != msg:
         log.close()
@@ -34,4 +36,10 @@ def get(url, de, senha, para):
 
 
 if __name__ == '__main__':
-    get(str(os.sys.argv[1]), str(os.sys.argv[2]), str(os.sys.argv[3]), str(os.sys.argv[4]))
+    frequencia = int(os.sys.argv[5])
+    while True:
+        get(str(os.sys.argv[1]),
+            str(os.sys.argv[2]),
+            str(os.sys.argv[3]),
+            str(os.sys.argv[4]))
+        time.sleep(frequencia)
